@@ -10,7 +10,7 @@ class Device(models.Model):
     owner = models.ForeignKey(User, on_delete=CASCADE, related_name="devices")
     name = models.CharField(max_length=32)
     description = models.CharField(max_length=256, null=True, default=None)
-    mac_address = models.CharField(max_length=20, null=True, default=None)
+    mac_address = models.CharField(max_length=20)
     ip_address = models.GenericIPAddressField()
     date_added = models.DateTimeField(default=timezone.now)
     

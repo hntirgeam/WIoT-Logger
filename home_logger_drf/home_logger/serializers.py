@@ -16,5 +16,5 @@ class DeviceSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = models.Device
-        fields = ['owner', 'id', 'name', 'description', 'mac_address', 'ip_address']
+        fields = ['owner', 'name', 'description', 'mac_address', 'ip_address']
         extra_kwargs = {"user": {"required": False}}
