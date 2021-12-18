@@ -3,6 +3,8 @@ from django.db import models
 from decimal import Decimal
 from django.utils import timezone
 
+import uuid
+
 
 from django.db.models.deletion import CASCADE, DO_NOTHING
 
@@ -10,12 +12,15 @@ class Device(models.Model):
     owner = models.ForeignKey(User, on_delete=CASCADE, related_name="devices")
     name = models.CharField(max_length=32)
     description = models.CharField(max_length=256, null=True, default=None)
-    mac_address = models.CharField(max_length=20)
-    ip_address = models.GenericIPAddressField()
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    ip_address = models.GenericIPAddressField(null=True)
     date_added = models.DateTimeField(default=timezone.now)
     
     class Meta:
-        ordering = ['date_added']
+        ordering = ['-date_added']
+        
+    def __repr__(self) -> str:
+        return F"{self.owner} {self.owner} {self.name} {self.uuid}\n"
 
 class Record(models.Model):
     device = models.ForeignKey(Device, on_delete=DO_NOTHING, related_name="records")
@@ -27,5 +32,5 @@ class Record(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
     
     class Meta:
-        ordering = ['timestamp']
+        ordering = ['-timestamp']
     
