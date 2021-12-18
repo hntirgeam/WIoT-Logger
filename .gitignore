@@ -5,3 +5,6 @@ __pycache__/
 **__pycache__/
 *.pyc
 home_logger_drf/home_logger/migrations/*
+
+# playground for testing purposes
+pg.py 
