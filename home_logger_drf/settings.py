@@ -44,13 +44,15 @@ INSTALLED_APPS = [
     'home_logger_drf.home_logger',
 ]
 
-
-if not DEBUG:
-    REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-    }
+# TODO 
+# if not DEBUG:
+REST_FRAMEWORK = {
+'DEFAULT_AUTHENTICATION_CLASSES': (
+    'rest_framework.authentication.TokenAuthentication',
+    'rest_framework.authentication.SessionAuthentication',
+    'rest_framework.authentication.BasicAuthentication',
+),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
