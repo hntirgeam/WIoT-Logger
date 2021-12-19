@@ -21,7 +21,7 @@
 
 ## Setup
 ```
-git clone git@github.com:hntirgeam/smart-home-logger.git
+git clone git@github.com:hntirgeam/WIoT-Logger.git
 cd smart-home-logger
 python3 -m venv env
 source env/bin/activate 
