@@ -1,12 +1,10 @@
+import uuid
+from decimal import Decimal
+
 from django.contrib.auth.models import User
 from django.db import models
-from decimal import Decimal
-from django.utils import timezone
-
-import uuid
-
-
 from django.db.models.deletion import CASCADE, DO_NOTHING
+from django.utils import timezone
 
 
 class Device(models.Model):

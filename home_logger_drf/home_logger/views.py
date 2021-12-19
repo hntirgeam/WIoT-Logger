@@ -1,15 +1,11 @@
-from home_logger_drf.home_logger import models
-from home_logger_drf.home_logger import serializers
-from home_logger_drf.home_logger.permissions import IsDeviceOwner, IsCSVOwner
-from home_logger_drf.home_logger import utils
-
-from rest_framework import permissions
-from rest_framework import viewsets
-from rest_framework import mixins
+from rest_framework import mixins, permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
-from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
+from rest_framework.viewsets import GenericViewSet
+
+from home_logger_drf.home_logger import models, serializers, utils
+from home_logger_drf.home_logger.permissions import IsCSVOwner, IsDeviceOwner
 
 
 class UserViewSet(GenericViewSet):

@@ -1,5 +1,6 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
+
 from home_logger_drf.home_logger import views
 
 router = DefaultRouter(trailing_slash=True)
