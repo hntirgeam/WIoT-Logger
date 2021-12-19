@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
-from django.shortcuts import get_object_or_404
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from home_logger_drf.home_logger import models
 
 
@@ -36,7 +35,15 @@ class RecordSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'temp', 'humidity', 'pressure', 'CO2', 'eTVOC', 'timestamp']
         
     def create(self, validated_data):
-        uuid = self.context['request'].data["uuid"]
-        device = get_object_or_404(models.Device, uuid=uuid)
+        uuid = self.context['request'].data.get("uuid", None)
+        device = None
+        
+        if not uuid:
+            raise PermissionDenied
+        try:
+            device = models.Device.objects.get(uuid=uuid)
+        except (models.Device.DoesNotExist, ValidationError):
+            raise PermissionDenied
+
         record = models.Record.objects.create(device=device, **validated_data)
         return record
