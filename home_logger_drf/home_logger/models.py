@@ -33,4 +33,7 @@ class Record(models.Model):
     
     class Meta:
         ordering = ['-timestamp']
+        
+    def __repr__(self) -> str:
+        return F"\nDevice {self.device.id}) {self.temp} {self.humidity} {self.pressure} {self.CO2} {self.eTVOC} {self.timestamp}\n"
     
