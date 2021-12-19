@@ -1,6 +1,7 @@
 from home_logger_drf.home_logger import models
 from home_logger_drf.home_logger import serializers
-from home_logger_drf.home_logger.permissions import IsOwner
+from home_logger_drf.home_logger.permissions import IsDeviceOwner, IsCSVOwner
+from home_logger_drf.home_logger import utils
 
 from rest_framework import permissions
 from rest_framework import viewsets
@@ -32,7 +33,8 @@ class UserViewSet(GenericViewSet):
 class DeviceViewSet(viewsets.ModelViewSet, GenericViewSet):
     serializer_class = serializers.DeviceSerializer
     queryset = models.Device.objects.all()
-    permission_classes=[permissions.IsAuthenticated, IsOwner]
+    permission_classes=[permissions.IsAuthenticated, IsDeviceOwner]
+    http_method_names = ['get', 'post', 'head', 'patch'] 
     
     def list(self, request, *args, **kwargs):
         devices = models.Device.objects.filter(owner=request.user)
@@ -51,7 +53,10 @@ class DeviceViewSet(viewsets.ModelViewSet, GenericViewSet):
         }
         return Response(response)
     
-    # @action TODO: action for exporting csv data
+    @action(detail=True, methods=["get"], url_path="csv_export", permission_classes=[permissions.IsAuthenticated, IsCSVOwner])
+    def export_device_history_csv(self, request, pk=None):
+        response = utils.create_device_csv(request, pk)
+        return response
 
         
 class RecordViewSet(mixins.CreateModelMixin, GenericViewSet):
