@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     'home_logger_drf.home_logger',
 ]
 
-# TODO 
-# if not DEBUG:
+# TODO: only auth by token
+# TODO: throttling for record viewset
+
 REST_FRAMEWORK = {
 'DEFAULT_AUTHENTICATION_CLASSES': (
     'rest_framework.authentication.TokenAuthentication',
@@ -53,6 +54,9 @@ REST_FRAMEWORK = {
     'rest_framework.authentication.BasicAuthentication',
 ),
 }
+
+# TODO: axes middleware for login attempts
+# TODO: email verif middleware for registration using email
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,6 +92,8 @@ WSGI_APPLICATION = 'home_logger_drf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+#TODO: psql pls
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -119,6 +125,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+
+# TODO: do smth about timezones
 
 TIME_ZONE = 'UTC'
 
