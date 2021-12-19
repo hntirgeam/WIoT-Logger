@@ -45,14 +45,9 @@ INSTALLED_APPS = [
     "home_logger_drf.home_logger",
 ]
 
-# TODO: only auth by token
-# TODO: throttling for record viewset
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.BasicAuthentication",
     ),
     'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.ScopedRateThrottle',
@@ -62,7 +57,7 @@ REST_FRAMEWORK = {
     }
 }
 
-# TODO: email verif middleware for registration using email
+# TODO: email verif middleware for registration using email 
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -108,12 +103,15 @@ WSGI_APPLICATION = "home_logger_drf.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# TODO: psql pls
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "logger_drf",
+        "USER": "logger_drf",
+        "PASSWORD": "logger_drf",
+        "HOST": "localhost",
+        "PORT": "5435", # just in case you have already one instance running on default port
     }
 }
 
