@@ -1,10 +1,16 @@
 env/
+
 db.sqlite3
 db.sqlite3-journal
+
 __pycache__/
 **__pycache__/
 *.pyc
+
 home_logger_drf/home_logger/migrations/*
 
 # playground for testing purposes
 pg.py 
+
+# psql db
+psql_volume/
