@@ -8,6 +8,7 @@ import uuid
 
 from django.db.models.deletion import CASCADE, DO_NOTHING
 
+
 class Device(models.Model):
     owner = models.ForeignKey(User, on_delete=CASCADE, related_name="devices")
     name = models.CharField(max_length=32)
@@ -15,12 +16,13 @@ class Device(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     ip_address = models.GenericIPAddressField(null=True)
     date_added = models.DateTimeField(default=timezone.now)
-    
+
     class Meta:
-        ordering = ['-date_added']
-        
+        ordering = ["-date_added"]
+
     def __repr__(self) -> str:
-        return F"{self.owner} {self.owner} {self.name} {self.uuid}\n"
+        return f"{self.owner} {self.owner} {self.name} {self.uuid}\n"
+
 
 class Record(models.Model):
     device = models.ForeignKey(Device, on_delete=DO_NOTHING, related_name="records")
@@ -30,10 +32,9 @@ class Record(models.Model):
     CO2 = models.DecimalField(max_digits=8, decimal_places=4, default=Decimal(0))
     eTVOC = models.DecimalField(max_digits=8, decimal_places=4, default=Decimal(0))
     timestamp = models.DateTimeField(default=timezone.now)
-    
+
     class Meta:
-        ordering = ['-timestamp']
-        
+        ordering = ["-timestamp"]
+
     def __repr__(self) -> str:
-        return F"\nDevice {self.device.id}) {self.temp} {self.humidity} {self.pressure} {self.CO2} {self.eTVOC} {self.timestamp}\n"
-    
+        return f"\nDevice {self.device.id}) {self.temp} {self.humidity} {self.pressure} {self.CO2} {self.eTVOC} {self.timestamp}\n"
