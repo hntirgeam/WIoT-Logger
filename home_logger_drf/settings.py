@@ -53,7 +53,7 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.ScopedRateThrottle',
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'record': '12/minute'
+        'record': '100/minute' # TODO: This should work only for device, not for user. 
     }
 }
 
