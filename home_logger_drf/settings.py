@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import datetime
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "djoser",
+    "axes",
     "home_logger_drf.home_logger",
 ]
 
@@ -52,9 +54,14 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
     ),
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'record': '12/minute'
+    }
 }
 
-# TODO: axes middleware for login attempts
 # TODO: email verif middleware for registration using email
 
 MIDDLEWARE = [
@@ -65,7 +72,17 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
+
+
+AUTHENTICATION_BACKENDS = {
+    "axes.backends.AxesBackend",
+    }
+
+AXES_ENABLED = True
+AXES_COOLOFF_TIME = datetime.timedelta(minutes=1)
+AXES_FAILURE_LIMIT = 5
 
 ROOT_URLCONF = "home_logger_drf.urls"
 
