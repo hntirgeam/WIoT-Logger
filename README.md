@@ -17,6 +17,7 @@
 * Adding and managing your devices
 * Logging data to DB via endpoint using given UUID as identifier
 * Retrieving data from DB to plot/analyze/do whatever you want
+* Exporting device data to CSV
 * Axes login bruteforce protection 
 
 ## Setup
