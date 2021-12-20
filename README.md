@@ -44,7 +44,7 @@ And it's done.
 
 
 ## Usage example
-I'm using this sketch [will appear here when I will write it] on ESP8266 with connected MH-Z19b and BME280 sensors to it.
+I'm using this [sketch](https://github.com/hntirgeam/ESP8266-WIoT#wiring) on ESP8266 with connected MH-Z19b and BME280 sensors to it.
 Every 10 seconds it sends data to endpoint and it logs it successfully.
 
 
@@ -69,7 +69,7 @@ Everything except for UUID may be blank
 
 
 ## TODOs
-- [ ] Write .ino sketch for ESP8266
+- [x] Write .ino sketch for ESP8266
 - [ ] Write semi-usable frontend for this project
 - [ ] Dockerize everything 
 - [ ] Tests? No way...
