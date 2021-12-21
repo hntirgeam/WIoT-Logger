@@ -15,7 +15,7 @@
 ## Base functionality
 * Djoser user login/registration
 * Adding and managing your devices
-* Logging data to DB via endpoint using given UUID as identifier
+* Logging data to DB via endpoint using given UUID as identifier (aka API-key)
 * Retrieving data from DB to plot/analyze/do whatever you want
 * Exporting device data to CSV
 * Axes login bruteforce protection 
@@ -32,13 +32,13 @@ Now you will need to start PostgreSQL. For example you can run it in docker:
 ```
 docker run -p 5435:5432 -e POSTGRES_USER=logger_drf -e POSTGRES_PASSWORD=logger_drf -e POSTGRES_DB=logger_drf -v $(pwd)/psql_volume:/var/lib/postgresql/data -d postgres:latest
 ```
-
+Apply migrations and start debug server:
 ```
 python manage.py makemigrations
 
 python manage.py migrate
 
-python manage.py runserver
+python manage.py runserver 0.0.0.0:8000 // Otherwise it won't be accessible from you local network
 ```
 And it's done. 
 
@@ -50,11 +50,17 @@ Every 10 seconds it sends data to endpoint and it logs it successfully.
 
 ## Endpoints
 
-* `POST: auth/users/` - User registration. Accepts `{"username": username, "password": password}`
-* `POST: auth/token/login/` - User login. Accepts `{"username": username, "password": password}`. Returns Token
-* `GET: users/me/` - Returns some info and your devices. Needs auth_token headers! `{'Authorization': 'Token <token>'}` 
-* `GET: devices/<int:pk>` - Returns device with entered id with all of its records. Needs auth_token headers! `{'Authorization': 'Token <token>'}`
-* `POST: record/` - Creats new record for device. Accepts 
+| URL                       | Method            | Accepts                                        | Returns                   | 
+| --------------------------|:-----------------:|:----------------------------------------------:|:-------------------------:|
+| `auth/users/`             | `POST`            | `{"username": username, "password": password}` |Success                    |
+| `auth/token/login/`       | `POST`            | `{"username": username, "password": password}` |Token                      |
+| `users/me/`               | `GET`             |  Headers `{'Authorization': 'Token <token>'}`  |Your info and your devices |
+| `devices/`                | `GET`             |  Headers `{'Authorization': 'Token <token>'}`  |Your devices and their info|
+| `devices/<pk>/`           | `GET`             |  Headers `{'Authorization': 'Token <token>'}`  |Device info and its records|
+| `devices/<pk>/csv_export` | `GET`             |  Headers `{'Authorization': 'Token <token>'}`  |CSV with device info/data  |
+| `records/`                | `POST`            |  `Check below*`                                |Success                    |
+
+`records/` accepts json that should look like this:
 ```
 {
     "uuid": "received uuid when device was registered",
