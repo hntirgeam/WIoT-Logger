@@ -44,7 +44,7 @@ And it's done.
 
 
 ## Usage example
-I'm using this [sketch](https://github.com/hntirgeam/ESP8266-WIoT#wiring) on ESP8266 with connected MH-Z19b and BME280 sensors to it.
+I'm using this [sketch](https://github.com/hntirgeam/WIoT-ESP8266) on ESP8266 with connected MH-Z19b and BME280 sensors to it.
 Every 10 seconds it sends data to endpoint and it logs it successfully.
 
 
