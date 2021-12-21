@@ -56,4 +56,4 @@ class DeviceViewSet(viewsets.ModelViewSet, GenericViewSet):
 class RecordViewSet(mixins.CreateModelMixin, GenericViewSet):
     serializer_class = serializers.RecordSerializer
     queryset = models.Record.objects.all()
-    throttle_scope = "record"
+    throttle_scope = "records"
