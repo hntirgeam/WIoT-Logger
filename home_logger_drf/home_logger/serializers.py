@@ -46,6 +46,6 @@ class RecordSerializer(serializers.HyperlinkedModelSerializer):
             device = models.Device.objects.get(api_key=api_key)
         except (models.Device.DoesNotExist, ValidationError):
             raise PermissionDenied
-        
+
         record = models.Record.objects.create(device=device, **validated_data)
         return record

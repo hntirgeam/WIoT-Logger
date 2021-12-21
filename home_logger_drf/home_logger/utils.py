@@ -9,7 +9,7 @@ from home_logger_drf.home_logger import models
 def create_device_csv(request, pk):
     device = models.Device.objects.get(id=pk)
     records = device.records.all()
-    
+
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = f'attachment; filename="{request.user}_device_{device.name}_{datetime.date.today()}.csv"'
 

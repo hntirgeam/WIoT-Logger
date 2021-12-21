@@ -47,17 +47,16 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.TokenAuthentication",
-    ),
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.ScopedRateThrottle',
+        "rest_framework.authentication.TokenAuthentication",),
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.ScopedRateThrottle",
     ],
-    'DEFAULT_THROTTLE_RATES': {
-        'record': '100/minute' # TODO: This should work only for device, not for user. 
-    }
+    "DEFAULT_THROTTLE_RATES": {
+        "record": "100/minute"
+    },  # TODO: This should work only for device, not for user.
 }
 
-# TODO: email verif middleware for registration using email 
+# TODO: email verif middleware for registration using email
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -73,7 +72,7 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = {
     "axes.backends.AxesBackend",
-    }
+}
 
 AXES_ENABLED = True
 AXES_COOLOFF_TIME = datetime.timedelta(minutes=1)
@@ -111,7 +110,7 @@ DATABASES = {
         "USER": "logger_drf",
         "PASSWORD": "logger_drf",
         "HOST": "localhost",
-        "PORT": "5435", # just in case you have already one instance running on default port
+        "PORT": "5435",  # just in case you have already one instance running on default port
     }
 }
 
