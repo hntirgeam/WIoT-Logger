@@ -21,8 +21,9 @@ class DeviceSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Device
-        fields = ["owner", "id", "name", "description", "ip_address", "uuid"]
-        extra_kwargs = {"ip_address": {"required": False}}
+        fields = ["owner", "id", "name", "description", "ip_address", "api_key", "date_added"]
+        extra_kwargs = {"ip_address": {"required": False},
+                        "date_added": {"required": False}}
 
     def create(self, validated_data):
         user = self.context["request"].user
@@ -33,18 +34,18 @@ class DeviceSerializer(serializers.HyperlinkedModelSerializer):
 class RecordSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Record
-        fields = ["id", "temp", "humidity", "pressure", "CO2", "eTVOC", "timestamp"]
+        fields = ["id", "temp", "humidity", "pressure", "co2", "etvoc", "timestamp"]
 
     def create(self, validated_data):
-        uuid = self.context["request"].data.get("uuid", None)
+        api_key = self.context["request"].data.get("api_key", None)
         device = None
 
-        if not uuid:
+        if not api_key:
             raise PermissionDenied
         try:
-            device = models.Device.objects.get(uuid=uuid)
+            device = models.Device.objects.get(api_key=api_key)
         except (models.Device.DoesNotExist, ValidationError):
             raise PermissionDenied
-
+        
         record = models.Record.objects.create(device=device, **validated_data)
         return record

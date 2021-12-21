@@ -8,5 +8,5 @@ class IsDeviceOwner(permissions.BasePermission):
 
 class IsCSVOwner(permissions.BasePermission):
     def has_permission(self, request, view):
-        device_pk = int(view.kwargs.get("pk", None))
-        return device_pk in [i.id for i in request.user.devices.all()]
+        device_id = view.kwargs.get("pk", None)
+        return device_id in [i.id for i in request.user.devices.all()]

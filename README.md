@@ -15,7 +15,7 @@
 ## Base functionality
 * Djoser user login/registration
 * Adding and managing your devices
-* Logging data to DB via endpoint using given UUID as identifier
+* Logging data to DB via endpoint using given API_KEY as identifier
 * Retrieving data from DB to plot/analyze/do whatever you want
 * Exporting device data to CSV
 * Axes login bruteforce protection 
@@ -57,7 +57,7 @@ Every 10 seconds it sends data to endpoint and it logs it successfully.
 * `POST: record/` - Creats new record for device. Accepts 
 ```
 {
-    "uuid": "received uuid when device was registered",
+    "api_key": "received api_key when device was registered",
     "temp": Decimal with 8 point precision,
     "humidity": Decimal with 8 point precision,
     "pressure": Decimal with 8 point precision,
@@ -65,7 +65,7 @@ Every 10 seconds it sends data to endpoint and it logs it successfully.
     "eTVOC": Decimal with 8 point precision,
 }
 ```
-Everything except for UUID may be blank
+Everything except for api_key may be blank
 
 
 ## TODOs
