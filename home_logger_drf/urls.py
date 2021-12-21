@@ -6,7 +6,7 @@ from home_logger_drf.home_logger import views
 router = DefaultRouter(trailing_slash=True)
 router.register(r"users", views.UserViewSet)
 router.register(r"devices", views.DeviceViewSet)
-router.register(r"record", views.RecordViewSet)
+router.register(r"records", views.RecordViewSet)
 
 
 urlpatterns = [
